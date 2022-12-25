@@ -3,6 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/binding.dart';
 import 'package:wathiq/constans.dart';
+import 'package:wathiq/views/authentication/choose-method.dart';
+import 'package:wathiq/views/authentication/register/password.dart';
 import 'package:wathiq/views/home.dart';
 import 'package:wathiq/views/navbar.dart';
 import 'package:wathiq/views/onboarding_page.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
       darkTheme: Themes.dark,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: NavBar(),
+      home: Password(),
       // initialBinding: HomeBinding(),
     );
   }

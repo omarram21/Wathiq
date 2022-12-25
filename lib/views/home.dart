@@ -25,13 +25,7 @@ class Home extends StatelessWidget {
               Image.asset("assets/images/logo.png",
                   width: MediaQuery.of(context).size.width / 1.5),
               ElevatedButton(
-                onPressed: () {
-                  PersistentNavBarNavigator.pushNewScreen(
-                    context,
-                    screen: TowTruck(),
-                    withNavBar: true,
-                  );
-                },
+                onPressed: () {},
                 child: Text("NEW ACCIDENT"),
               )
             ],
