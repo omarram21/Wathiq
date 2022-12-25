@@ -37,7 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_otp_text_field: ^1.1.1
-  flutter_pw_validator: ^1.5.0
+
   get: ^4.6.5
   google_fonts: ^3.0.1
   intl_phone_number_input: ^0.7.1

@@ -25,7 +25,6 @@ class NavBar extends StatelessWidget {
         popActionScreens: PopActionScreensType.all,
         navBarStyle: NavBarStyle.style14, //1 3 16
         backgroundColor: AppColors.BLUE,
-
         decoration: const NavBarDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),

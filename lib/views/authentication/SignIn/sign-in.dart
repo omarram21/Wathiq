@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:wathiq/controllers/register-controller.dart';
-import 'package:wathiq/views/authentication/otp/phone-number-scereen.dart';
-import 'package:wathiq/views/navbar.dart';
 import 'package:wathiq/widgets/button.dart';
 import '../../../constans.dart';
 
-class Password extends StatelessWidget {
-  Password({super.key});
+class SignIn extends StatelessWidget {
+  SignIn({super.key});
 
-  final _formKey = GlobalKey<FormState>();
   RegisterController registerController = Get.find<RegisterController>();
-
-  String? pwd1;
-  String? pwd2;
+  final _formKey = GlobalKey<FormState>();
+  String? nationalNumber;
+  String? password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,30 +52,47 @@ class Password extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Enter your Password',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-                ),
-                const Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    'password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
                 Form(
                   key: _formKey,
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Column(
                       children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Enter Your National Number",
+                                style: TextStyle(fontWeight: FontWeight.w900))),
+                        SizedBox(height: 10),
                         TextFormField(
                           onSaved: (newValue) {
-                            pwd1 = newValue;
+                            nationalNumber = newValue;
+                          },
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'National Number',
+                            prefixIcon: Icon(Icons.person),
+                          ),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]+"))
+                          ],
+                          maxLength: 10,
+                          validator: (value) {
+                            if (value != null && value.isEmpty) {
+                              return 'National number cannot be empty';
+                            } else if (value!.length < 10)
+                              return "cannot be less than 10 digits";
+                          },
+                          // obscureText: true,
+                        ),
+                        SizedBox(height: 1),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Enter Your Password",
+                                style: TextStyle(fontWeight: FontWeight.w900))),
+                        SizedBox(height: 10),
+                        TextFormField(
+                          onSaved: (newValue) {
+                            password = newValue;
                           },
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
@@ -86,26 +100,9 @@ class Password extends StatelessWidget {
                             prefixIcon: Icon(Icons.password),
                           ),
                           validator: (value) {
-                            pwd1 = value;
                             if (value != null && value.isEmpty) {
-                              return 'Password cannot be empty';
-                            } else if (!isValidPassword(value))
-                              return "Check your password...";
-                            // print(isValidPassword(value));
-                          },
-                          obscureText: true,
-                        ),
-                        SizedBox(height: 10),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 're-Enter Password',
-                            prefixIcon: Icon(Icons.threesixty_outlined),
-                          ),
-                          validator: (value) {
-                            if (value != null && value.isEmpty) {
-                              return 're-Password  cannot be empty';
-                            } else if (pwd1 != value) return "Not The Same!";
+                              return 'cannot be empty';
+                            }
                           },
                           obscureText: true,
                         ),
@@ -113,31 +110,25 @@ class Password extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 ButtonWidget(
-                  text: "Continuo",
+                  text: "SignIn",
                   color: AppColors.BLUE,
                   width: MediaQuery.of(context).size.width * 0.8,
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      registerController.CreateAccount(
-                          registerController.NID!, pwd1!);
+                      print(nationalNumber);
+                      print(password);
+                      registerController.SignIn(nationalNumber!, password!);
                     }
                   },
                 )
-                //
               ],
             ),
           ],
         ),
       ),
     );
-  }
-
-  bool isValidPassword(val) {
-    return RegExp(
-            r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~_]).{8,}$')
-        .hasMatch(val);
   }
 }

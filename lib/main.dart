@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:wathiq/binding.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/views/authentication/choose-method.dart';
-import 'package:wathiq/views/authentication/register/password.dart';
-import 'package:wathiq/views/home.dart';
+import 'package:wathiq/views/authentication/register/national-number.dart';
 import 'package:wathiq/views/navbar.dart';
 import 'package:wathiq/views/onboarding_page.dart';
 import 'firebase_options.dart';
@@ -29,7 +27,9 @@ class MyApp extends StatelessWidget {
       darkTheme: Themes.dark,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: Password(),
+      // home: NavBar(),
+      home: OnboardingPage(),
+      // home: ChooseMethod(),
       // initialBinding: HomeBinding(),
     );
   }

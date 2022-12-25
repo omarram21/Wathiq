@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
+import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/register/IDNo.dart';
 import 'package:wathiq/widgets/button.dart';
 
@@ -14,6 +14,7 @@ class NationalNumber extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   String? nationalNumber;
+  RegisterController registerController = Get.find<RegisterController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,11 +107,16 @@ class NationalNumber extends StatelessWidget {
                   text: "Continuo",
                   color: AppColors.BLUE,
                   width: MediaQuery.of(context).size.width * 0.8,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate())
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                    print(nationalNumber);
-                    Get.to(IDNo());
+                      print(nationalNumber);
+                      registerController.NID = nationalNumber;
+                      await registerController.findNID(nationalNumber!)
+                          ? Get.to(() => IDNo())
+                          : Get.snackbar('national Number Not Found',
+                              'please enter a valid national Number');
+                    }
                   },
                 )
                 //

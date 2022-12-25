@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wathiq/views/home.dart';
+import 'package:wathiq/views/authentication/choose-method.dart';
+
 import '../models/onboarding-module.dart';
 
 class OnboardingController extends GetxController {
@@ -10,7 +11,7 @@ class OnboardingController extends GetxController {
 
   forwardAction() {
     if (isLastPage) {
-      Get.offAll(() => Home());
+      Get.offAll(() => ChooseMethod());
     } else
       pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);
   }

@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/phone-number-scereen.dart';
+import 'package:wathiq/views/authentication/register/password.dart';
 import '../../../constans.dart';
 import '../../../widgets/button.dart';
 
@@ -12,6 +14,7 @@ class IDNo extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   String? IDN;
+  RegisterController registerController = Get.find<RegisterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +72,6 @@ class IDNo extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 20),
                 Form(
                   key: _formKey,
@@ -102,14 +104,17 @@ class IDNo extends StatelessWidget {
                   text: "Continuo",
                   color: AppColors.BLUE,
                   width: MediaQuery.of(context).size.width * 0.8,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate())
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                    print(IDN);
-                    Get.to(() => EnterPhoneNumber());
+                      registerController.IDno = IDN;
+                      await registerController.findIDno(IDN!)
+                          ? Get.to(() => Password())
+                          : Get.snackbar('ID not correct',
+                              'please enter a valid ID Number');
+                    }
                   },
                 )
-                //
               ],
             ),
             // Expanded(flex: 1, child: Container()),
