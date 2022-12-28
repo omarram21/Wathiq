@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/phone-number-scereen.dart';
 import 'package:wathiq/views/authentication/register/password.dart';
@@ -108,8 +109,9 @@ class IDNo extends StatelessWidget {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
                       registerController.IDno = IDN;
+                      // print(IDN);
                       await registerController.findIDno(IDN!)
-                          ? Get.to(() => Password())
+                          ? Get.to(() => EnterPhoneNumber())
                           : Get.snackbar('ID not correct',
                               'please enter a valid ID Number');
                     }

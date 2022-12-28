@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/phone-number-scereen.dart';
-import 'package:wathiq/views/navbar.dart';
+import 'package:wathiq/views/navbar/navbar.dart';
 import 'package:wathiq/widgets/button.dart';
 import '../../../constans.dart';
 
@@ -123,6 +123,7 @@ class Password extends StatelessWidget {
                       _formKey.currentState!.save();
                       registerController.CreateAccount(
                           registerController.NID!, pwd1!);
+                      // registerController.getName();
                     }
                   },
                 )

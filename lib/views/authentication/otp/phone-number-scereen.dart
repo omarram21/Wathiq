@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/otp.dart';
 
 import '../../../constans.dart';
@@ -8,8 +10,9 @@ import '../../../constans.dart';
 class EnterPhoneNumber extends StatelessWidget {
   EnterPhoneNumber({Key? key}) : super(key: key);
 
-  final TextEditingController controller = TextEditingController();
-  bool _isLoading = false;
+  RegisterController registerController = Get.find<RegisterController>();
+  final _formKey = GlobalKey<FormState>();
+  String? phone;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class EnterPhoneNumber extends StatelessWidget {
             ),
             SizedBox(height: 50),
             const Text(
-              'REGISTER',
+              'Phone Number',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
@@ -69,50 +72,49 @@ class EnterPhoneNumber extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
               width: MediaQuery.of(context).size.width * 0.8,
+              height: 50,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: AppColors.BLUE),
               ),
               child: Stack(
                 children: [
-                  InternationalPhoneNumberInput(
-                    initialValue: PhoneNumber(dialCode: '+962'),
-                    onInputChanged: (PhoneNumber number) {
-                      print('${number.dialCode} hey');
-                    },
-                    onInputValidated: (bool value) {
-                      print(value);
-                    },
-                    selectorConfig: SelectorConfig(
-                      selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                  Positioned(
+                      left: 0,
+                      bottom: 0,
+                      // height: 0,
+                      // right: 0,
+                      child: Row(
+                        children: [
+                          Image.asset('assets/images/jordan.png', height: 40),
+                          Text("   +962"),
+                        ],
+                      )),
+                  Positioned(
+                    right: 0,
+                    left: 110,
+                    bottom: -5,
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(9),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]+"))
+                          ],
+                          onSaved: (newValue) => phone = newValue,
+                          onChanged: (value) {
+                            phone = value;
+                          }),
                     ),
-                    ignoreBlank: false,
-                    autoValidateMode: AutovalidateMode.disabled,
-                    selectorTextStyle: TextStyle(color: Colors.white),
-                    textFieldController: controller,
-                    formatInput: false,
-                    maxLength: 9,
-                    keyboardType: TextInputType.numberWithOptions(
-                        signed: true, decimal: true),
-                    cursorColor: Colors.white,
-                    inputDecoration: InputDecoration(
-                      contentPadding: EdgeInsets.only(bottom: 15, left: 0),
-                      border: InputBorder.none,
-                      hintText: 'Phone Number',
-                      hintStyle:
-                          TextStyle(color: Colors.grey.shade500, fontSize: 16),
-                    ),
-                    onSaved: (PhoneNumber number) {
-                      print('On Saved: $number');
-                    },
                   ),
                   Positioned(
-                    left: 90,
+                    left: 100,
                     top: 8,
                     bottom: 8,
                     child: Container(
                       height: 40,
-                      width: 1,
+                      width: 2,
                       color: AppColors.BLUE,
                     ),
                   )
@@ -123,35 +125,31 @@ class EnterPhoneNumber extends StatelessWidget {
             MaterialButton(
               minWidth: MediaQuery.of(context).size.width * 0.8,
               onPressed: () {
-                Get.to(() => Otp());
-                Future.delayed(Duration(seconds: 2), () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => Verificatoin()));
-                });
+                print(phone);
+                if (isValidPhone(phone)) {
+                  _formKey.currentState!.save();
+                  print(phone);
+                  registerController.verifyPhone('+962${phone}');
+                  Get.to(() => Otp());
+                } else
+                  Get.snackbar('incorrect phone number',
+                      'Please fill your phone number');
               },
               color: AppColors.BLUE,
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-              child: _isLoading
-                  ? Container(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.white,
-                        color: Colors.black,
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      "Request OTP",
-                      style: TextStyle(color: Colors.white),
-                    ),
+              child: Text(
+                "Request OTP",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             SizedBox(height: 20),
           ],
         ),
       ),
     );
+  }
+
+  bool isValidPhone(val) {
+    return RegExp(r'^7[987][0-9]{7}$').hasMatch(val);
   }
 }

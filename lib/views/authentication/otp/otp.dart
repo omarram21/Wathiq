@@ -6,11 +6,11 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 
 import '../../../constans.dart';
+import '../../../controllers/register-controller.dart';
 
 class Otp extends StatelessWidget {
   Otp({super.key});
-
-  // final autController = Get.find<AutController>();
+  RegisterController registerController = Get.find<RegisterController>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +54,10 @@ class Otp extends StatelessWidget {
                 fontSize: 24,
               ),
             ),
-            const Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
               child: Text(
-                'Enter the code that sent to your phone number to enshour that is you',
+                'we have sent for ${registerController.phono} a sms code please  Verifying your PHONE',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
@@ -75,18 +74,12 @@ class Otp extends StatelessWidget {
                 //handle validation or checks here
               },
               //runs when every textfield is filled
-              onSubmit: (String verificationCode) async {
-                // print(verificationCode);
-                // await autController.verifyOTP(verificationCode)
-                //     ? Get.to(() => WelcomingScreen())
-                //     : Get.back();
+              onSubmit: (String verificationCode) {
+                print(verificationCode);
+                registerController.verifyOTP(verificationCode);
               }, // end onSubmit
             ),
-            // ElevatedButton(onPressed: (){}), child: Tex)
             SizedBox(height: 50),
-
-            Text('0${079}******${60}',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
           ],
         ),
       ),

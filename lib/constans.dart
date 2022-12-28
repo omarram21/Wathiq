@@ -6,6 +6,7 @@ class AppColors {
   static final MaterialColor BLUE = hex('#514BC3');
   static final MaterialColor GRAY = hex('#707070');
   static final MaterialColor WHITE = hex('#FFFFFF');
+  static final MaterialColor RED = hex('#FF0000');
 
   static MaterialColor hex(String hex) =>
       AppColors._factoryColor(AppColors._getColorHexFromStr(hex));
@@ -60,7 +61,11 @@ class Themes {
   static final dark = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: AppColors.BACKGROUND,
     // buttonColor: AppColors.BLUE,
-    buttonTheme: ButtonThemeData(buttonColor: Colors.yellow),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    ),
+
     iconTheme: IconThemeData(
       color: Colors.white,
     ),

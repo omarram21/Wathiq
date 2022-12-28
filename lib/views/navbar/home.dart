@@ -5,10 +5,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:wathiq/constans.dart';
-import 'package:wathiq/views/history.dart';
-import 'package:wathiq/views/profile.dart';
-import 'package:wathiq/views/tow-truck.dart';
-import 'package:wathiq/views/wathiq.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});

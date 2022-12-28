@@ -7,7 +7,7 @@ import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/SignIn/sign-in.dart';
 import 'package:wathiq/views/authentication/register/national-number.dart';
-import 'package:wathiq/views/navbar.dart';
+import 'package:wathiq/views/navbar/navbar.dart';
 import 'package:wathiq/widgets/button.dart';
 
 class ChooseMethod extends StatelessWidget {
@@ -64,7 +64,7 @@ class ChooseMethod extends StatelessWidget {
                     text: "HomePage",
                     color: AppColors.BLUE,
                     onPressed: () {
-                      Get.offAll(() => NavBar());
+                      // Get.offAll(() => NavBar());
                     }),
               ],
             ),

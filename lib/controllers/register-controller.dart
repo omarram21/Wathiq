@@ -1,45 +1,108 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
 import 'package:wathiq/models/user.dart';
-import 'package:wathiq/views/navbar.dart';
+import 'package:wathiq/views/authentication/register/password.dart';
+import 'package:wathiq/views/navbar/navbar.dart';
 
 class RegisterController extends GetxController {
   String? NID;
-  String? Password;
+  String? Password1;
   String? IDno;
-  Future<String> getName() async {
-    return await FirebaseFirestore.instance
+  RxString verificationId = ''.obs;
+  String phono = '';
+
+  late Users users;
+
+  void verifyPhone(String phoneNo) async {
+    phono = phoneNo;
+    print(phono);
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      timeout: Duration(seconds: 40),
+      phoneNumber: phoneNo,
+      verificationCompleted: (PhoneAuthCredential credential) {
+        // FirebaseAuth.instance.signInWithCredential(credential);
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        Get.snackbar("Error", e.toString(), duration: Duration(minutes: 1));
+      },
+      codeSent: (String id, int? resendToken) {
+        this.verificationId.value = id;
+        print("Value $id");
+      },
+      codeAutoRetrievalTimeout: (String id) {
+        this.verificationId.value = id;
+      },
+    );
+    print('${this.verificationId.value} hererer ');
+  }
+
+  verifyOTP(String otp) async {
+    // print('${otp} my otp');
+    // print('${verificationId.value.isBlank} my sms');
+    final x = await FirebaseAuth.instance.signInWithCredential(
+        PhoneAuthProvider.credential(
+            verificationId: verificationId.value, smsCode: otp));
+
+    if (x.user != null) {
+      Get.to(() => Password());
+      FirebaseAuth.instance.currentUser!.delete();
+    } else {
+      Get.snackbar("SMS not The Same", "Error");
+    }
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+  }
+
+  void getUser(String n, String id) async {
+    final x = await FirebaseFirestore.instance
         .collection('government')
-        .where('nationalNumber', isEqualTo: '2000685905')
-        .where('IDNo', isEqualTo: 'VXX64965')
+        .where('nationalNumber', isEqualTo: n)
+        .where('IDNo', isEqualTo: id)
         .get()
-        .then((value) => value.docs[0]['name']);
+        .then((value) => value.docs.forEach((element) {
+              users = Users.fromSnap(element);
+            }));
+
+    // print(element.data());
+    // print(element.data()['nationalNumber']);
+    // print(element.data()['IDNo']);
+    // print(element.data()['uid'] ?? '');
+    // print(element.data()['name']);
+    // print(element.data()['licenseNumber']);
+    // print(element.data()['licenseEndDate']);
+    // print(element.data()['phone']);
+
+    print(users.toJson());
+    print("-----------------------------------------------------");
   }
 
   void CreateAccount(String nationalID, String password) async {
     bool ok = true;
     try {
+      getUser(nationalID, IDno!);
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: nationalID + '@wathiq.com',
         password: password,
       );
-
-      Users users = Users(
-          nationalNumber: nationalID,
-          IDno: IDno!,
-          name: await getName(),
-          uid: credential.user!.uid);
+      print(credential.user!.uid);
+      print(phono);
+      users.uid = credential.user!.uid;
+      users.phone = phono;
       FirebaseFirestore.instance
           .collection('users')
           .doc(credential.user!.uid)
           .set(users.toJson());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        Get.snackbar(
-            "Something Error", "The account already exists for that email.");
+        Get.snackbar("Something Error", "The account already exists.");
       }
       ok = false;
     } catch (e) {
@@ -93,6 +156,8 @@ class RegisterController extends GetxController {
 
   Future<bool> findIDno(String IDnoo) async {
     bool ok = false;
+    // print(NID);
+    // print(IDnoo);
     await FirebaseFirestore.instance
         .collection('government')
         .where('nationalNumber', isEqualTo: NID)
