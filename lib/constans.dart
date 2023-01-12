@@ -60,6 +60,9 @@ class Themes {
   // );
   static final dark = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: AppColors.BACKGROUND,
+    radioTheme: RadioThemeData(
+      fillColor: MaterialStateProperty.all(AppColors.BLUE),
+    ),
     // buttonColor: AppColors.BLUE,
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,

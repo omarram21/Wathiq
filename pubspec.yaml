@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adobe_xd: ^2.0.1
+  audioplayers: ^0.20.1
   cloud_firestore: ^4.2.0
   cupertino_icons: ^1.0.2
   firebase_auth: ^4.2.1
@@ -39,9 +40,12 @@ dependencies:
     sdk: flutter
   flutter_otp_text_field: ^1.1.1
 
+  flutter_sound: ^9.2.13
   get: ^4.6.5
   google_fonts: ^3.0.1
+  image_picker: ^0.8.6
   intl_phone_number_input: ^0.7.1
+  permission_handler: ^10.2.0
   persistent_bottom_nav_bar: ^5.0.2
   url_launcher: ^6.1.7
 

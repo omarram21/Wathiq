@@ -5,7 +5,7 @@ import 'package:wathiq/views/navbar/history.dart';
 import 'package:wathiq/views/navbar/home.dart';
 import 'package:wathiq/views/navbar/profile/profile.dart';
 import 'package:wathiq/views/navbar/tow-truck.dart';
-import 'package:wathiq/views/navbar/wathiq.dart';
+import 'package:wathiq/views/navbar/wathiq/wathiq.dart';
 
 class NavBar extends StatelessWidget {
   NavBar({super.key});
