@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wathiq/controllers/wathiq-controller.dart';
-import 'package:wathiq/views/navbar/profile/profile.dart';
-import 'package:wathiq/views/navbar/wathiq/required-details.dart';
+import 'package:wathiq/views/navbar/wathiq/choosing/choose-between-two.dart';
 import 'package:wathiq/widgets/button.dart';
 
 class Wathiq extends StatelessWidget {
@@ -82,7 +81,8 @@ class Wathiq extends StatelessWidget {
               text: "New Accident Report",
               color: Colors.green,
               onPressed: () {
-                Get.to(() => RequiredDetails());
+                // Get.to(() => RequiredDetails());
+                Get.to(() => ChooseBetweenTwo());
               },
             )
           else

@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/views/navbar/wathiq/required/pictures.dart';
 import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
 
@@ -61,6 +62,7 @@ class Responsible extends StatelessWidget {
             text: "Continuo",
             color: AppColors.BLUE,
             onPressed: () {
+              Get.to(() => Pictures());
               print(wathiqController.responsible.value);
             },
           )

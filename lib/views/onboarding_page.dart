@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:lottie/lottie.dart';
 
 import '../constans.dart';
 import '../controllers/onboarding-controller.dart';
@@ -23,9 +24,9 @@ class OnboardingPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
+                        Lottie.asset(
                             _controller.onboardingPages[index].imageAsset,
-                            height: MediaQuery.of(context).size.height / 4),
+                            height: MediaQuery.of(context).size.height / 3),
                         SizedBox(height: 32),
                         Text(
                           _controller.onboardingPages[index].title,
@@ -33,17 +34,17 @@ class OnboardingPage extends StatelessWidget {
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             fontFamily: "beIN",
-                            height: 1.5,
+                            height: 1,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 25),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 64.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
                           child: Text(
                             _controller.onboardingPages[index].description,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18),
+                            textAlign: TextAlign.justify,
+                            style: TextStyle(fontSize: 16),
                           ),
                         ),
                       ],

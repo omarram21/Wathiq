@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/views/navbar/wathiq/required/voice-record.dart';
 import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
 
@@ -116,6 +117,13 @@ class Pictures extends StatelessWidget {
               color: Colors.green,
               onPressed: () {
                 wathiqController.pickAllImage();
+              },
+            ),
+            ButtonWidget(
+              text: "Continuo",
+              color: Colors.green,
+              onPressed: () {
+                Get.to(() => VoiceRecord());
               },
             ),
           ],

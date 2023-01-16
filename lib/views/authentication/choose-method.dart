@@ -24,7 +24,6 @@ class ChooseMethod extends StatelessWidget {
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 1.5,
             decoration: BoxDecoration(
-              // border: Border.all(width: 10, color: AppColors.BLUE),
               color: AppColors.BLUE,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(50),
@@ -33,7 +32,6 @@ class ChooseMethod extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 70),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset("assets/images/logo.png"),
@@ -44,28 +42,25 @@ class ChooseMethod extends StatelessWidget {
           ),
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonWidget(
-                    text: "Login",
-                    color: AppColors.GRAY,
-                    width: 200,
-                    onPressed: () {
-                      Get.to(() => SignIn());
-                    }),
+                  text: "Login",
+                  color: AppColors.GRAY,
+                  // width: 200,
+                  onPressed: () {
+                    Get.to(() => SignIn());
+                  },
+                ),
+                SizedBox(height: 20),
                 ButtonWidget(
-                    text: "Register",
-                    color: AppColors.GRAY,
-                    width: 200,
-                    onPressed: () {
-                      Get.to(() => NationalNumber());
-                    }),
-                ButtonWidget(
-                    text: "HomePage",
-                    color: AppColors.BLUE,
-                    onPressed: () {
-                      // Get.offAll(() => NavBar());
-                    }),
+                  text: "Register",
+                  color: AppColors.GRAY,
+                  // width: 200,
+                  onPressed: () {
+                    Get.to(() => NationalNumber());
+                  },
+                ),
               ],
             ),
           )

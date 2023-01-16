@@ -12,7 +12,7 @@ class OwnedVehicles extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "OWNED VEHICAES",
+          "OWNED VEHICLES",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -24,7 +24,7 @@ class OwnedVehicles extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 separatorBuilder: (context, index) => SizedBox(height: 15),
-                itemCount: 5,
+                itemCount: 1,
                 itemBuilder: (context, index) => Container(
                   decoration: BoxDecoration(
                       border: Border.all(color: AppColors.BLUE, width: 3),

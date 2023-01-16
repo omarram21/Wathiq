@@ -18,16 +18,19 @@ class OnboardingController extends GetxController {
 
   List<OnboardingInfo> onboardingPages = [
     OnboardingInfo(
-        'assets/images/crash.gif',
-        'فتح طلب حادث جديد\n بسرعة و سهولة',
-        'يتيح وثِّقها امكانية فتح كروكا دون الحاجة لتواجد مندوب الحوادث في حال لم يكن هنالك إصابات بشرية '),
+      'assets/images/car-crash.json',
+      'New Accident Reports, Easy and fast',
+      'Wathiq allows the possibility of opening a crock without the need for the presence of the accident representative in the event that there are no human casualties',
+    ),
     OnboardingInfo(
-        'assets/images/tows-car.gif',
-        'طلب المساعدة في حال تعطل مركبتك عن العمل',
-        'يتيح وثِّقها إمكانية التواصل مع العديد من السطحات القريبة من منطة الحادث '),
+      'assets/images/two-truck.json',
+      'Request assistance in the event of your vehicle breaking down',
+      'Wathiq makes it possible to communicate with several truck drivers close to the accident area',
+    ),
     OnboardingInfo(
-        'assets/images/Follow-up-reports.gif',
-        'متابعة الحوادث والتقارير\nالخاصة بك',
-        'يمكِّنُك وثِّق من الاستعلام عن الحوادث الحالية وعن الحوادث السابقة')
+      'assets/images/report-tick-mark.json',
+      'Follow up on your incidents and reports',
+      'Watheq enables you to inquire about current incidents and past incidents',
+    )
   ];
 }

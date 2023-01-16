@@ -7,18 +7,18 @@ import 'package:wathiq/views/navbar/profile/profile.dart';
 import 'package:wathiq/views/navbar/tow-truck.dart';
 import 'package:wathiq/views/navbar/wathiq/wathiq.dart';
 
+final PersistentTabController controller1 =
+    PersistentTabController(initialIndex: 0);
+
 class NavBar extends StatelessWidget {
   NavBar({super.key});
-
-  final PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PersistentTabView(
         context,
-        controller: _controller,
+        controller: controller1,
         screens: screens,
         items: items,
         popAllScreensOnTapOfSelectedTab: true,

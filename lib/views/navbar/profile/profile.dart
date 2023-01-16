@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/profile-controller.dart';
 import 'package:wathiq/views/authentication/choose-method.dart';
@@ -35,7 +36,7 @@ class Profile extends StatelessWidget {
               flex: 1,
               child: Center(
                 child: Text(
-                  "Welcome Omar Ramadan...",
+                  "Welcome...",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
@@ -63,7 +64,10 @@ class Profile extends StatelessWidget {
                   ButtonWidget(
                     text: "NEED HELP ?",
                     color: AppColors.BLUE,
-                    onPressed: () {},
+                    onPressed: () async {
+                      await launchUrl(
+                          Uri(scheme: 'tel', path: "+962790000001"));
+                    },
                   ),
                   SizedBox(height: 15),
                   ButtonWidget(

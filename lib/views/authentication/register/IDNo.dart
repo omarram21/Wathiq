@@ -66,7 +66,7 @@ class IDNo extends StatelessWidget {
                 const Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(
-                    'Enter your National number witch is consist of 10 digests and it\'s on front of your Card',
+                    'Enter your ID number witch is consist of 8 Characters and it\'s on back of your Card',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
