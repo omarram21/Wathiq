@@ -2,12 +2,17 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart' as pre;
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_sound/flutter_sound.dart';
+import 'package:wathiq/constans.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
+import 'package:wathiq/views/navbar/wathiq/required/required-details.dart';
+import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
 
 class VoiceRecord extends StatefulWidget {
@@ -20,28 +25,30 @@ class VoiceRecord extends StatefulWidget {
 class _VoiceRecordState extends State<VoiceRecord> {
   FlutterSoundRecorder recorder = FlutterSoundRecorder();
   bool isRecorderReady = false;
-  late final audioFile;
+  File? audioFile;
 
   final audioPlayer = pre.AudioPlayer();
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
 
+  RequiredDetailsController requiredDetailsController =
+      Get.find<RequiredDetailsController>();
+
   @override
   initState() {
     super.initState();
     initRecorder();
-    // setAudio();
-    //
+
     audioPlayer.onPlayerStateChanged.listen((event) {
       setState(() {
         isPlaying = event == pre.PlayerState.PLAYING;
       });
     });
-
     audioPlayer.onDurationChanged.listen((event) {
       setState(() {
         duration = event;
+        requiredDetailsController.audioDuration.value = formatTime(duration);
       });
     });
     audioPlayer.onAudioPositionChanged.listen((event) {
@@ -51,10 +58,6 @@ class _VoiceRecordState extends State<VoiceRecord> {
     });
   }
 
-  // Future setAudio() async {
-  //   audioPlayer.play(audioFile.path, isLocal: true);
-  // }
-
   @override
   void dispose() {
     recorder.closeRecorder();
@@ -63,7 +66,6 @@ class _VoiceRecordState extends State<VoiceRecord> {
 
   Future initRecorder() async {
     final status = await Permission.microphone.request();
-    // final status = await Permission.microphone.request();
 
     if (status != PermissionStatus.granted) {
       throw "mic premetion not granted";
@@ -71,7 +73,7 @@ class _VoiceRecordState extends State<VoiceRecord> {
     await recorder.openRecorder();
     isRecorderReady = true;
     recorder.setSubscriptionDuration(
-      const Duration(milliseconds: 500),
+      const Duration(milliseconds: 1),
     );
   }
 
@@ -83,83 +85,152 @@ class _VoiceRecordState extends State<VoiceRecord> {
   Future stop() async {
     if (!isRecorderReady) return;
 
-    final path = await recorder.stopRecorder();
+    String? path = await recorder.stopRecorder();
+
+    print("ok");
     audioFile = File(path!);
-    print('Recorded audio: ${audioFile}');
+    requiredDetailsController.audio = File(path!);
+    requiredDetailsController.audioDuration.value = formatTime(duration);
+    print("ok2");
+
+    print('Recorded audio: $audioFile');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(data: "Record", bold: true),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              StreamBuilder<RecordingDisposition>(
-                stream: recorder.onProgress,
-                builder: (context, snapshot) {
-                  final duration = snapshot.hasData
-                      ? snapshot.data!.duration
-                      : Duration.zero;
-                  return TextWidget(data: "${duration.inSeconds} s");
-                },
-              ),
-              ElevatedButton(
-                child: Icon(
-                  recorder.isRecording ? Icons.stop : Icons.mic,
-                  size: 80,
-                ),
-                onPressed: () async {
-                  if (recorder.isRecording) {
-                    await stop();
-                  } else {
-                    await record();
-                  }
-                  setState(() {});
-                },
-              ),
-              ElevatedButton(
-                child: Text("AWDAWD"),
-                onPressed: () {},
-              ),
-              Slider(
-                min: 0,
-                max: duration.inSeconds.toDouble(),
-                value: position.inSeconds.toDouble(),
-                onChanged: (value) async {
-                  final position = Duration(seconds: value.toInt());
-                  await audioPlayer.seek(position);
-
-                  //optinal
-                  await audioPlayer.resume();
-                },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
                 children: [
-                  TextWidget(data: position.toString()),
-                  TextWidget(data: (duration - position).toString()),
+                  TextWidget(
+                    data: 'Recorded how the accident Happen in details',
+                    bold: true,
+                    size: 20,
+                  ),
+                  SizedBox(height: 50),
+                  StreamBuilder<RecordingDisposition>(
+                    stream: recorder.onProgress,
+                    builder: (context, snapshot) {
+                      final duration1 = snapshot.hasData
+                          ? snapshot.data!.duration
+                          : Duration.zero;
+
+                      // return TextWidget(data: "${duration1.inSeconds} s");
+                      String twoDigits(int n) => n.toString().padLeft(2, '0');
+                      final twoDigitsMinutes =
+                          twoDigits(duration1.inMinutes.remainder(60));
+                      final twoDigitsSecond =
+                          twoDigits(duration1.inSeconds.remainder(60));
+                      return TextWidget(
+                        data: '$twoDigitsMinutes:$twoDigitsSecond',
+                        bold: true,
+                        size: 50,
+                      );
+                      ;
+                    },
+                  ),
+                  Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: AppColors.BLUE,
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        recorder.isRecording ? Icons.stop : Icons.mic,
+                        size: 80,
+                      ),
+                      onPressed: () async {
+                        if (recorder.isRecording) {
+                          await stop();
+                        } else {
+                          await record();
+                        }
+                        setState(() {});
+                      },
+                    ),
+                  ),
                 ],
               ),
-              CircleAvatar(
-                radius: 35,
-                child: IconButton(
-                  icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                  iconSize: 50,
-                  onPressed: () async {
-                    if (isPlaying) {
-                      await audioPlayer.pause();
-                    } else {
-                      await audioPlayer.play(audioFile.path, isLocal: true);
-                    }
-                  },
-                ),
+              Column(
+                children: [
+                  Slider(
+                    min: 0,
+                    max: duration.inSeconds.toDouble(),
+                    value: position.inSeconds.toDouble(),
+                    onChanged: (value) async {
+                      final position = Duration(seconds: value.toInt());
+                      await audioPlayer.seek(position);
+                      //optinal
+                      await audioPlayer.resume();
+                    },
+                    activeColor: AppColors.BLUE,
+                    inactiveColor: AppColors.GRAY,
+                    thumbColor: AppColors.BLUE,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextWidget(data: formatTime(position)),
+                      TextWidget(data: formatTime(duration)),
+                    ],
+                  ),
+                  CircleAvatar(
+                    radius: 35,
+                    child: IconButton(
+                      icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
+                      iconSize: 50,
+                      onPressed: () async {
+                        if (isPlaying) {
+                          await audioPlayer.pause();
+                        } else {
+                          audioFile != null
+                              ? await audioPlayer.play(audioFile!.path,
+                                  isLocal: true)
+                              : Get.snackbar(
+                                  'Error', 'Recored Your Voice First');
+                        }
+                      },
+                    ),
+                  )
+                ],
+              ),
+              ButtonWidget(
+                text: "Continuo",
+                color: Colors.green,
+                onPressed: () {
+                  requiredDetailsController.audioDuration.value.isEmpty
+                      ? Get.snackbar(
+                          'Error', 'pleas recorded your voice to continuo')
+                      : Get.off(RequiredDetails());
+                },
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  String formatTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final mins = twoDigits(duration.inMinutes.remainder(60));
+    final sec = twoDigits(duration.inSeconds.remainder(60));
+
+    return [
+      if (duration.inHours > 0) hours,
+      mins,
+      sec,
+    ].join(':');
   }
 }

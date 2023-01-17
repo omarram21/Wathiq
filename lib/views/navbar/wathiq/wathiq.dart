@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
 import 'package:wathiq/views/navbar/wathiq/choosing/choose-between-two.dart';
+import 'package:wathiq/views/navbar/wathiq/required/required-details.dart';
 import 'package:wathiq/widgets/button.dart';
 
 class Wathiq extends StatelessWidget {
   Wathiq({super.key});
-  WathiqController wathiqController = Get.put(WathiqController());
+  RequiredDetailsController requiredDetailsController =
+      Get.put(RequiredDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,9 @@ class Wathiq extends StatelessWidget {
                 children: [
                   Radio(
                     value: "yes",
-                    groupValue: wathiqController.groub.value,
+                    groupValue: requiredDetailsController.groub.value,
                     onChanged: (val) {
-                      wathiqController.groub.value = val as String;
+                      requiredDetailsController.groub.value = val as String;
                     },
                   ),
                   Text("YES"),
@@ -45,10 +47,10 @@ class Wathiq extends StatelessWidget {
                 children: [
                   Radio(
                     value: "no",
-                    groupValue: wathiqController.groub.value,
+                    groupValue: requiredDetailsController.groub.value,
                     onChanged: (val) {
-                      wathiqController.groub.value = val as String;
-                      print(wathiqController.groub.value);
+                      requiredDetailsController.groub.value = val as String;
+                      print(requiredDetailsController.groub.value);
                     },
                   ),
                   Text("NO"),
@@ -57,7 +59,7 @@ class Wathiq extends StatelessWidget {
             ],
           ),
           SizedBox(height: 100),
-          if (wathiqController.groub == "yes")
+          if (requiredDetailsController.groub == "yes")
             Stack(
               clipBehavior: Clip.none,
               children: [
@@ -76,13 +78,13 @@ class Wathiq extends StatelessWidget {
                         Image.asset("assets/images/road_gov.png", width: 100)),
               ],
             )
-          else if (wathiqController.groub == "no")
+          else if (requiredDetailsController.groub == "no")
             ButtonWidget(
               text: "New Accident Report",
               color: Colors.green,
               onPressed: () {
-                // Get.to(() => RequiredDetails());
-                Get.to(() => ChooseBetweenTwo());
+                Get.to(() => RequiredDetails());
+                // Get.to(() => ChooseBetweenTwo());
               },
             )
           else

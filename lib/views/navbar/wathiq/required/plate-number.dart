@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/constans.dart';
-import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
 import 'package:wathiq/views/navbar/wathiq/required/license-number.dart';
 import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
@@ -12,12 +12,16 @@ import 'package:wathiq/widgets/text.dart';
 class PlateNumber extends StatelessWidget {
   PlateNumber({super.key});
 
-  WathiqController wathiqController = Get.find<WathiqController>();
+  RequiredDetailsController requiredDetailsController =
+      Get.find<RequiredDetailsController>();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(data: "Plate Number", bold: true),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -34,20 +38,20 @@ class PlateNumber extends StatelessWidget {
                   Image.asset("assets/images/plate-number.png"),
                   Positioned(
                     top: 7,
-                    left: 65,
-                    right: 170,
+                    left: MediaQuery.of(context).size.width * 0.2,
+                    right: MediaQuery.of(context).size.width * 0.5,
                     child: TextFormField(
                       onChanged: (value) {
                         if (value.length == 2)
                           FocusScope.of(context).nextFocus();
                       },
                       onSaved: (val) {
-                        wathiqController.PlateNumber1 = val;
+                        requiredDetailsController.PlateNumber1 = val;
                       },
                       validator: (value) {
                         if (value != null && value.isEmpty) {
-                          return 'less than 2';
-                        } else if (value!.length < 2) return "less than 2";
+                          return 'less than 1';
+                        } else if (value!.length < 1) return "less than 1";
                       },
                       textInputAction: TextInputAction.next,
                       inputFormatters: [
@@ -71,12 +75,12 @@ class PlateNumber extends StatelessWidget {
                         FilteringTextInputFormatter.allow(RegExp("[0-9]+"))
                       ],
                       onSaved: (val) {
-                        wathiqController.PlateNumber2 = val;
+                        requiredDetailsController.PlateNumber2 = val;
                       },
                       validator: (value) {
                         if (value != null && value.isEmpty) {
-                          return 'less than 5';
-                        } else if (value!.length < 5) return "less than 5";
+                          return 'less than 1';
+                        } else if (value!.length < 1) return "less than 1";
                       },
                       decoration: const InputDecoration(
                         border: InputBorder.none,
@@ -89,7 +93,7 @@ class PlateNumber extends StatelessWidget {
                           fontSize: 25),
                     ),
                     top: 7,
-                    left: 150,
+                    left: MediaQuery.of(context).size.width * 0.4,
                     right: 0,
                   ),
                 ],
@@ -103,13 +107,13 @@ class PlateNumber extends StatelessWidget {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  wathiqController.PlateNumberAll.value =
-                      wathiqController.PlateNumber1! +
+                  requiredDetailsController.plateNumberAll.value =
+                      requiredDetailsController.PlateNumber1! +
                           "-" +
-                          wathiqController.PlateNumber2!;
+                          requiredDetailsController.PlateNumber2!;
                   print(
-                      "${wathiqController.PlateNumberAll} ${wathiqController.PlateNumber2}");
-                  Get.to(() => LicenseNumber());
+                      "${requiredDetailsController.plateNumberAll} ${requiredDetailsController.PlateNumber2}");
+                  Get.off(() => LicenseNumber());
                 }
               },
             )

@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/constans.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
 import 'package:wathiq/views/navbar/wathiq/required/voice-record.dart';
 import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
@@ -13,22 +9,27 @@ import 'package:wathiq/widgets/text.dart';
 class Pictures extends StatelessWidget {
   Pictures({super.key});
 
-  WathiqController wathiqController = Get.find<WathiqController>();
+  RequiredDetailsController requiredDetailsController =
+      Get.find<RequiredDetailsController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(data: "Pictures", bold: true),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ListView(
           children: [
-            TextWidget(data: "Sides Photos : ", bold: true, size: 30),
+            TextWidget(data: "The four sides : ", bold: true, size: 24),
+            SizedBox(height: 10),
             Obx(
               () => GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: wathiqController.listImage.length,
+                itemCount: requiredDetailsController.listImage.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
@@ -39,20 +40,21 @@ class Pictures extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Container(
-                        child: wathiqController.listImage[index] ==
-                                'assets/images/image.png'
+                        child: requiredDetailsController.listImage[index] ==
+                                'assets/images/${index + 1}.png'
                             ? Image.asset(
-                                wathiqController.listImage[index],
+                                requiredDetailsController.listImage[index],
                                 fit: BoxFit.contain,
                               )
-                            : Image.file(wathiqController.listImage[index]),
+                            : Image.file(
+                                requiredDetailsController.listImage[index]),
                       ),
                       Positioned(
                         right: -10,
                         top: -20,
                         child: IconButton(
                           onPressed: () {
-                            wathiqController.pickImage(index);
+                            requiredDetailsController.pickImage(index);
                           },
                           icon:
                               Image.asset("assets/images/plus.png", width: 20),
@@ -65,18 +67,21 @@ class Pictures extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ButtonWidget(
-              text: "add all",
+              text: "Add the four sides by one CLICK",
               color: Colors.green,
               onPressed: () {
-                wathiqController.pickAllImage();
+                requiredDetailsController.pickAllImage();
               },
             ),
+            SizedBox(height: 40),
+            TextWidget(data: "Damage Area & Road : ", bold: true, size: 24),
+            SizedBox(height: 20),
             Obx(
               () => GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: wathiqController.listImage2.length,
+                itemCount: requiredDetailsController.listImage2.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                   crossAxisSpacing: 10,
@@ -87,20 +92,21 @@ class Pictures extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Container(
-                        child: wathiqController.listImage2[index] ==
-                                'assets/images/image.png'
+                        child: requiredDetailsController.listImage2[index] ==
+                                'assets/images/damage.png'
                             ? Image.asset(
-                                wathiqController.listImage2[index],
+                                requiredDetailsController.listImage2[index],
                                 fit: BoxFit.contain,
                               )
-                            : Image.file(wathiqController.listImage2[index]),
+                            : Image.file(
+                                requiredDetailsController.listImage2[index]),
                       ),
                       Positioned(
                         right: -10,
                         top: -20,
                         child: IconButton(
                           onPressed: () {
-                            wathiqController.pickImage(index);
+                            requiredDetailsController.pickImage2(index);
                           },
                           icon:
                               Image.asset("assets/images/plus.png", width: 20),
@@ -113,17 +119,19 @@ class Pictures extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ButtonWidget(
-              text: "Hello",
+              text: "Add Damage Area by one CLICK",
               color: Colors.green,
               onPressed: () {
-                wathiqController.pickAllImage();
+                requiredDetailsController.pickAllImage2();
               },
             ),
+            SizedBox(height: 40),
             ButtonWidget(
               text: "Continuo",
-              color: Colors.green,
+              color: AppColors.BLUE,
               onPressed: () {
-                Get.to(() => VoiceRecord());
+                if (requiredDetailsController.checkallList())
+                  Get.off(() => VoiceRecord());
               },
             ),
           ],

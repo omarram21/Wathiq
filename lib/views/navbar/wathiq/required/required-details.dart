@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/constans.dart';
-import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
+import 'package:wathiq/views/navbar/wathiq/required/damage-area.dart';
 import 'package:wathiq/views/navbar/wathiq/required/license-number.dart';
 import 'package:wathiq/views/navbar/wathiq/required/pictures.dart';
 import 'package:wathiq/views/navbar/wathiq/required/plate-number.dart';
@@ -12,9 +13,9 @@ import 'package:wathiq/widgets/text.dart';
 
 class RequiredDetails extends StatelessWidget {
   RequiredDetails({super.key});
-  WathiqController wathiqController = Get.find<WathiqController>();
+  RequiredDetailsController requiredDetailsController =
+      Get.find<RequiredDetailsController>();
 
-  String Who = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +23,43 @@ class RequiredDetails extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: ListView(
           children: [
-            SizedBox(height: 100),
+            SizedBox(height: 50),
+            Padding(
+              padding: EdgeInsets.all(30),
+              // alignment: Alignment.center,
+              child: TextWidget(
+                data: 'Fill all the required information',
+                bold: true,
+                size: 24,
+              ),
+            ),
+            // SizedBox(height: 20),
             Card(
               color: AppColors.BLUE,
               child: ListTile(
                 leading: Image.asset("assets/images/license-plate.png"),
                 title: TextWidget(data: "Plate Number", bold: true),
                 subtitle: Obx(() => TextWidget(
-                    data: wathiqController.PlateNumberAll.value, bold: true)),
-                trailing: Icon(Icons.arrow_forward),
+                    data: requiredDetailsController.plateNumberAll.value,
+                    bold: true)),
+                trailing: Obx(
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      requiredDetailsController.plateNumberAll.value.isEmpty
+                          ? const Icon(
+                              Icons.crop_square,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.check_box_outlined,
+                              color: Colors.green,
+                            ),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.arrow_forward),
+                    ],
+                  ),
+                ),
                 onTap: () => Get.to(() => PlateNumber()),
               ),
             ),
@@ -41,8 +70,25 @@ class RequiredDetails extends StatelessWidget {
                 leading: Image.asset("assets/images/driving-license.png"),
                 title: TextWidget(data: "License Number", bold: true),
                 subtitle: Obx(() => TextWidget(
-                    data: wathiqController.license.value, bold: true)),
-                trailing: Icon(Icons.arrow_forward),
+                    data: requiredDetailsController.license.value, bold: true)),
+                trailing: Obx(
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      requiredDetailsController.license.value.isEmpty
+                          ? const Icon(
+                              Icons.crop_square,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.check_box_outlined,
+                              color: Colors.green,
+                            ),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.arrow_forward),
+                    ],
+                  ),
+                ),
                 onTap: () => Get.to(() => LicenseNumber()),
               ),
             ),
@@ -52,9 +98,50 @@ class RequiredDetails extends StatelessWidget {
                 leading: Image.asset("assets/images/hand.png"),
                 title: TextWidget(data: "Responsible", bold: true),
                 subtitle: Obx(() => TextWidget(
-                    data: wathiqController.responsible.value, bold: true)),
-                trailing: Icon(Icons.arrow_forward),
+                    data: requiredDetailsController.responsible.value,
+                    bold: true)),
+                trailing: Obx(
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      requiredDetailsController.responsible.value.isEmpty
+                          ? const Icon(
+                              Icons.crop_square,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.check_box_outlined,
+                              color: Colors.green,
+                            ),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.arrow_forward),
+                    ],
+                  ),
+                ),
                 onTap: () => Get.to(() => Responsible()),
+              ),
+            ),
+            Card(
+              color: AppColors.BLUE,
+              child: ListTile(
+                leading: Icon(
+                  Icons.car_crash_outlined,
+                  size: 50,
+                ),
+                title: TextWidget(data: "Damage Area", bold: true),
+                subtitle: TextWidget(data: '', bold: true),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.check_box_outlined,
+                      color: Colors.green,
+                    ),
+                    const SizedBox(width: 10),
+                    const Icon(Icons.arrow_forward),
+                  ],
+                ),
+                onTap: () => Get.to(() => DamageArea()),
               ),
             ),
             Card(
@@ -62,9 +149,28 @@ class RequiredDetails extends StatelessWidget {
               child: ListTile(
                 leading: Image.asset("assets/images/camera.png"),
                 title: TextWidget(data: "Pictures of Accident", bold: true),
-                subtitle: Obx(() => TextWidget(
-                    data: wathiqController.responsible.value, bold: true)),
-                trailing: Icon(Icons.arrow_forward),
+                subtitle: Obx(() =>
+                    requiredDetailsController.okImages.value == true
+                        ? Text('done')
+                        : Text('')),
+                trailing: Obx(
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      requiredDetailsController.okImages.value == false
+                          ? const Icon(
+                              Icons.crop_square,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.check_box_outlined,
+                              color: Colors.green,
+                            ),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.arrow_forward),
+                    ],
+                  ),
+                ),
                 onTap: () => Get.to(() => Pictures()),
               ),
             ),
@@ -74,11 +180,38 @@ class RequiredDetails extends StatelessWidget {
                 leading: Image.asset("assets/images/voice-search.png"),
                 title: TextWidget(data: "Voice Record", bold: true),
                 subtitle: Obx(() => TextWidget(
-                    data: wathiqController.responsible.value, bold: true)),
-                trailing: Icon(Icons.arrow_forward),
+                    data: requiredDetailsController.audioDuration.value,
+                    bold: true)),
+                trailing: Obx(
+                  () => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      requiredDetailsController.audioDuration.value.isEmpty
+                          ? const Icon(
+                              Icons.crop_square,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.check_box_outlined,
+                              color: Colors.green,
+                            ),
+                      const SizedBox(width: 10),
+                      const Icon(Icons.arrow_forward),
+                    ],
+                  ),
+                ),
                 onTap: () => Get.to(() => VoiceRecord()),
               ),
             ),
+            SizedBox(height: 30),
+            ButtonWidget(
+              text: "Sent Accident Report",
+              color: Colors.green,
+              onPressed: () {
+                requiredDetailsController.sentAccidentReport();
+              },
+            ),
+            SizedBox(height: 30),
           ],
         ),
       ),

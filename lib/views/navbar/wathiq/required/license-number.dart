@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/constans.dart';
-import 'package:wathiq/controllers/wathiq-controller.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
 import 'package:wathiq/views/navbar/wathiq/required/responsible.dart';
 import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
@@ -12,12 +12,16 @@ import 'package:wathiq/widgets/text.dart';
 class LicenseNumber extends StatelessWidget {
   LicenseNumber({super.key});
 
-  WathiqController wathiqController = Get.find<WathiqController>();
+  RequiredDetailsController requiredDetailsController =
+      Get.find<RequiredDetailsController>();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(data: "License Number", bold: true),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -39,7 +43,7 @@ class LicenseNumber extends StatelessWidget {
                         FilteringTextInputFormatter.allow(RegExp("[0-9]+"))
                       ],
                       onSaved: (val) {
-                        wathiqController.license.value = val!;
+                        requiredDetailsController.license.value = val!;
                       },
                       validator: (value) {
                         if (value != null && value.isEmpty) {
@@ -57,7 +61,7 @@ class LicenseNumber extends StatelessWidget {
                           fontSize: 25),
                     ),
                     top: 7,
-                    left: 150,
+                    left: MediaQuery.of(context).size.width * 0.4,
                     right: 0,
                   ),
                 ],
@@ -71,8 +75,8 @@ class LicenseNumber extends StatelessWidget {
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  print("${wathiqController.license}");
-                  Get.to(() => Responsible());
+                  print("${requiredDetailsController.license}");
+                  Get.off(() => Responsible());
                 }
               },
             )
