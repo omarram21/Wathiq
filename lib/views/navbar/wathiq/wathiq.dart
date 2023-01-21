@@ -6,10 +6,11 @@ import 'package:wathiq/views/navbar/wathiq/choosing/choose-between-two.dart';
 import 'package:wathiq/views/navbar/wathiq/required/required-details.dart';
 import 'package:wathiq/widgets/button.dart';
 
+import '../../../controllers/choose-two-controller.dart';
+
 class Wathiq extends StatelessWidget {
   Wathiq({super.key});
-  RequiredDetailsController requiredDetailsController =
-      Get.put(RequiredDetailsController());
+  ChooseTwoControllers chooseTwoControllers = Get.put(ChooseTwoControllers());
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +36,9 @@ class Wathiq extends StatelessWidget {
                 children: [
                   Radio(
                     value: "yes",
-                    groupValue: requiredDetailsController.groub.value,
+                    groupValue: chooseTwoControllers.groub.value,
                     onChanged: (val) {
-                      requiredDetailsController.groub.value = val as String;
+                      chooseTwoControllers.groub.value = val as String;
                     },
                   ),
                   Text("YES"),
@@ -47,10 +48,10 @@ class Wathiq extends StatelessWidget {
                 children: [
                   Radio(
                     value: "no",
-                    groupValue: requiredDetailsController.groub.value,
+                    groupValue: chooseTwoControllers.groub.value,
                     onChanged: (val) {
-                      requiredDetailsController.groub.value = val as String;
-                      print(requiredDetailsController.groub.value);
+                      chooseTwoControllers.groub.value = val as String;
+                      print(chooseTwoControllers.groub.value);
                     },
                   ),
                   Text("NO"),
@@ -59,32 +60,23 @@ class Wathiq extends StatelessWidget {
             ],
           ),
           SizedBox(height: 100),
-          if (requiredDetailsController.groub == "yes")
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                ButtonWidget(
-                  text: "Call 911",
-                  color: Colors.red,
-                  onPressed: () async {
-                    await launchUrl(
-                      Uri(scheme: 'tel', path: "911"),
-                    );
-                  },
-                ),
-                Positioned(
-                    top: -25,
-                    child:
-                        Image.asset("assets/images/road_gov.png", width: 100)),
-              ],
+          if (chooseTwoControllers.groub == "yes")
+            ButtonWidget(
+              text: "Call 911",
+              color: Colors.red,
+              onPressed: () async {
+                await launchUrl(
+                  Uri(scheme: 'tel', path: "911"),
+                );
+              },
             )
-          else if (requiredDetailsController.groub == "no")
+          else if (chooseTwoControllers.groub == "no")
             ButtonWidget(
               text: "New Accident Report",
               color: Colors.green,
               onPressed: () {
-                Get.to(() => RequiredDetails());
-                // Get.to(() => ChooseBetweenTwo());
+                // Get.to(() => RequiredDetails());
+                Get.to(() => ChooseBetweenTwo());
               },
             )
           else

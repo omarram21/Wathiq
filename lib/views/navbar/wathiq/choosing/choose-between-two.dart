@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/choose-two-controller.dart';
+import 'package:wathiq/controllers/required-details-controller.dart';
 import 'package:wathiq/views/navbar/wathiq/choosing/boss/generate-QR.dart';
 import 'package:wathiq/views/navbar/wathiq/choosing/boss/num-cars-location.dart';
 import 'package:wathiq/views/navbar/wathiq/choosing/scanner-QR.dart';
+import 'package:wathiq/views/navbar/wathiq/required/required-details.dart';
 import 'package:wathiq/widgets/button.dart';
 import 'package:wathiq/widgets/text.dart';
 
 class ChooseBetweenTwo extends StatelessWidget {
   ChooseBetweenTwo({super.key});
 
-  final chooseTwoControllers = Get.put(ChooseTwoControllers());
-
+  final chooseTwoControllers = Get.find<ChooseTwoControllers>();
+  final requiredDetailsController = Get.put(RequiredDetailsController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,8 @@ class ChooseBetweenTwo extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
-                              data: "Create New Accident Report :", bold: true),
+                              data: "Create New Accident Report : ",
+                              bold: true),
                           SizedBox(height: 25),
                           ButtonWidget(
                             text: "Genrate QR code",
@@ -46,7 +49,7 @@ class ChooseBetweenTwo extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           TextWidget(
-                              data: "Join Exists Accident Report :",
+                              data: "Join Existing Accident Report : ",
                               bold: true),
                           SizedBox(height: 25),
                           ButtonWidget(

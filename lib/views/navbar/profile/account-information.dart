@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/profile-controller.dart';
 import 'package:wathiq/widgets/button.dart';
+
+import '../navbar.dart';
 
 class AccountInformation extends StatelessWidget {
   AccountInformation({super.key});
@@ -139,7 +142,18 @@ class AccountInformation extends StatelessWidget {
                 text: 'Delete Account',
                 color: AppColors.RED,
                 onPressed: () {
-                  profileController.deleteAccount();
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.warning,
+                    showCancelBtn: true,
+                    title: 'are you sure you want delete your account ?',
+                    confirmBtnText: "Sure",
+                    confirmBtnColor: Colors.red,
+                    onConfirmBtnTap: () async {
+                      profileController.deleteAccount();
+                      controller1.index = 0;
+                    },
+                  );
                 }),
           ],
         ),

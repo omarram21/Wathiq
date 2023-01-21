@@ -1,3 +1,5 @@
+// import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,9 @@ class RegisterController extends GetxController {
   String? IDno;
   RxString verificationId = ''.obs;
   String phono = '';
+  RxBool isHidden1 = true.obs;
+  RxBool isHidden2 = true.obs;
+  RxBool isHidden3 = true.obs;
 
   late Users users;
 
@@ -69,16 +74,6 @@ class RegisterController extends GetxController {
         .then((value) => value.docs.forEach((element) {
               users = Users.fromSnap(element);
             }));
-
-    // print(element.data());
-    // print(element.data()['nationalNumber']);
-    // print(element.data()['IDNo']);
-    // print(element.data()['uid'] ?? '');
-    // print(element.data()['name']);
-    // print(element.data()['licenseNumber']);
-    // print(element.data()['licenseEndDate']);
-    // print(element.data()['phone']);
-
     print(users.toJson());
     print("-----------------------------------------------------");
   }
@@ -113,25 +108,34 @@ class RegisterController extends GetxController {
   }
 
   void SignIn(String nationalID, String password) async {
-    bool ok = true;
+    // print(nationalID);
+    // print(password);
+    // bool ok = false;
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: nationalID + '@wathiq.com',
         password: password,
       );
+      // ok = false;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ok = false;
+        // ok = true;
         Get.snackbar(
-            "Something Error", "No user found for the National Number");
+            "Something Error", "no user found for that national number");
         // print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        ok = false;
+        // ok = true;
         Get.snackbar(
             "Something Error", "Wrong password provided for that user.");
+      } else {
+        print(e.code);
       }
     }
-    ok ? Get.offAll(() => NavBar()) : ok;
+
+    print(FirebaseAuth.instance.currentUser == null);
+    FirebaseAuth.instance.currentUser != null
+        ? Get.offAll(() => NavBar())
+        : null;
   }
 
   Future<bool> findNID(String nationalNumber) async {

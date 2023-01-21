@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/otp.dart';
+import 'package:wathiq/widgets/text.dart';
 
 import '../../../constans.dart';
 
@@ -20,6 +21,12 @@ class EnterPhoneNumber extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.BLUE,
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: TextWidget(data: "3/5", bold: true),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -132,12 +139,12 @@ class EnterPhoneNumber extends StatelessWidget {
                   registerController.verifyPhone('+962${phone}');
                   Get.to(() => Otp());
                 } else
-                  Get.snackbar('incorrect phone number',
-                      'Please fill your phone number');
+                  Get.snackbar('Incorrect phone number',
+                      'Please enter your phone number');
               },
               color: AppColors.BLUE,
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-              child: Text(
+              child: const Text(
                 "Request OTP",
                 style: TextStyle(color: Colors.white),
               ),

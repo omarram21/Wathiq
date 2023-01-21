@@ -22,8 +22,9 @@ class Pictures extends StatelessWidget {
         padding: const EdgeInsets.all(30.0),
         child: ListView(
           children: [
-            TextWidget(data: "The four sides : ", bold: true, size: 24),
-            SizedBox(height: 10),
+            TextWidget(
+                data: "Your vehicle from 4-sides: ", bold: true, size: 21),
+            SizedBox(height: 20),
             Obx(
               () => GridView.builder(
                 physics: NeverScrollableScrollPhysics(),
@@ -74,7 +75,7 @@ class Pictures extends StatelessWidget {
               },
             ),
             SizedBox(height: 40),
-            TextWidget(data: "Damage Area & Road : ", bold: true, size: 24),
+            TextWidget(data: "Damage Area & Road : ", bold: true, size: 21),
             SizedBox(height: 20),
             Obx(
               () => GridView.builder(
@@ -127,7 +128,7 @@ class Pictures extends StatelessWidget {
             ),
             SizedBox(height: 40),
             ButtonWidget(
-              text: "Continuo",
+              text: "Continue",
               color: AppColors.BLUE,
               onPressed: () {
                 if (requiredDetailsController.checkallList())

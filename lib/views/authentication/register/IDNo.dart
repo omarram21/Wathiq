@@ -7,6 +7,7 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/phone-number-scereen.dart';
 import 'package:wathiq/views/authentication/register/password.dart';
+import 'package:wathiq/widgets/text.dart';
 import '../../../constans.dart';
 import '../../../widgets/button.dart';
 
@@ -23,6 +24,12 @@ class IDNo extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.BLUE,
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: TextWidget(data: "2/5", bold: true),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -64,12 +71,14 @@ class IDNo extends StatelessWidget {
                   ),
                 ),
                 const Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 10),
                   child: Text(
-                    'Enter your ID number witch is consist of 8 Characters and it\'s on back of your Card',
+                    'Enter your ID number which is consist of 8 Characters and it\'s on back of your Card',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -95,7 +104,7 @@ class IDNo extends StatelessWidget {
                         if (value != null && value.isEmpty) {
                           return 'ID number cannot be empty';
                         } else if (value!.length < 8)
-                          return "cannot be less than 8 characters";
+                          return "must have at least 8 characters";
                       },
                     ),
                   ),
@@ -112,8 +121,8 @@ class IDNo extends StatelessWidget {
                       // print(IDN);
                       await registerController.findIDno(IDN!)
                           ? Get.to(() => EnterPhoneNumber())
-                          : Get.snackbar('ID not correct',
-                              'please enter a valid ID Number');
+                          : Get.snackbar('ID number is incorrect',
+                              'please enter valid ID number');
                     }
                   },
                 )

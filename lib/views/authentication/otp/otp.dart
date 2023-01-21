@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import 'package:wathiq/widgets/text.dart';
 
 import '../../../constans.dart';
 import '../../../controllers/register-controller.dart';
@@ -18,6 +19,12 @@ class Otp extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.BLUE,
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: TextWidget(data: "4/5", bold: true),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -57,10 +64,12 @@ class Otp extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
               child: Text(
-                'we have sent for ${registerController.phono} a sms code please  Verifying your PHONE',
+                'Enter the 6-digit number that sent to you on ${registerController.phono}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
+                  color: Colors.grey,
+                  height: 1.5,
                 ),
               ),
             ),

@@ -3,16 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/profile-controller.dart';
 import 'package:wathiq/views/authentication/choose-method.dart';
+import 'package:wathiq/views/navbar/navbar.dart';
 import 'package:wathiq/views/navbar/profile/account-information.dart';
+import 'package:wathiq/views/navbar/profile/complations.dart';
 import 'package:wathiq/views/navbar/profile/owned-vehicles.dart';
 import 'package:wathiq/widgets/button.dart';
 
 class Profile extends StatelessWidget {
   Profile({super.key});
+  String message = '';
 
   ProfileController profileController = Get.put(ProfileController());
   @override
@@ -62,6 +67,23 @@ class Profile extends StatelessWidget {
                   ),
                   SizedBox(height: 15),
                   ButtonWidget(
+                    text: "About Wathiq",
+                    color: AppColors.BLUE,
+                    onPressed: () async {
+                      await launchUrl(
+                          Uri(scheme: 'tel', path: "+962790000001"));
+                    },
+                  ),
+                  SizedBox(height: 15),
+                  ButtonWidget(
+                    text: "Complain or Suggestions",
+                    color: AppColors.BLUE,
+                    onPressed: () {
+                      Get.to(() => Complaints());
+                    },
+                  ),
+                  SizedBox(height: 15),
+                  ButtonWidget(
                     text: "NEED HELP ?",
                     color: AppColors.BLUE,
                     onPressed: () async {
@@ -73,9 +95,22 @@ class Profile extends StatelessWidget {
                   ButtonWidget(
                     text: "Exit",
                     color: AppColors.RED,
-                    onPressed: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Get.offAll(() => ChooseMethod());
+                    onPressed: () {
+                      QuickAlert.show(
+                        context: context,
+                        type: QuickAlertType.warning,
+                        showCancelBtn: true,
+                        title: 'are you sure you want to log out ?',
+                        confirmBtnText: "YES",
+                        // cancelBtnText: ,
+                        // onCancelBtnTap: () {},
+                        confirmBtnColor: Colors.red,
+                        onConfirmBtnTap: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Get.offAll(() => ChooseMethod());
+                          controller1.index = 0;
+                        },
+                      );
                     },
                   ),
                 ],

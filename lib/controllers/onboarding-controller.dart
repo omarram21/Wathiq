@@ -19,18 +19,18 @@ class OnboardingController extends GetxController {
   List<OnboardingInfo> onboardingPages = [
     OnboardingInfo(
       'assets/images/car-crash.json',
-      'New Accident Reports, Easy and fast',
-      'Wathiq allows the possibility of opening a crock without the need for the presence of the accident representative in the event that there are no human casualties',
+      'New Accident Reports,\n Easy and fast',
+      'In the case that there are no human casualties, Wathiq permits for the opening of a crock without the presence of an accident representative.',
     ),
     OnboardingInfo(
       'assets/images/two-truck.json',
-      'Request assistance in the event of your vehicle breaking down',
-      'Wathiq makes it possible to communicate with several truck drivers close to the accident area',
+      'Request assistance when your vehicle breaking\n down',
+      'Wathiq makes it possible to communicate with several truck drivers close to the accident area.',
     ),
     OnboardingInfo(
       'assets/images/report-tick-mark.json',
-      'Follow up on your incidents and reports',
-      'Watheq enables you to inquire about current incidents and past incidents',
+      'Keep track of your accidents and reports',
+      'Wathiq enables you to inquire about current and previous accidents.',
     )
   ];
 }

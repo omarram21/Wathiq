@@ -5,6 +5,7 @@ import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/otp/phone-number-scereen.dart';
 import 'package:wathiq/views/navbar/navbar.dart';
 import 'package:wathiq/widgets/button.dart';
+import 'package:wathiq/widgets/text.dart';
 import '../../../constans.dart';
 
 class Password extends StatelessWidget {
@@ -15,12 +16,19 @@ class Password extends StatelessWidget {
 
   String? pwd1;
   String? pwd2;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.BLUE,
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: TextWidget(data: "5/5", bold: true),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         // physics: RangeMaintainingScrollPhysics(),
@@ -56,16 +64,17 @@ class Password extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Enter your Password',
+                  'Create password',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 ),
                 const Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Text(
-                    'password must contain at least eight characters, at least one number and both lower and uppercase letters and special characters',
-                    textAlign: TextAlign.center,
+                    'must be eight characters, contain at least :\n - one number\n - one lower and uppercase letters \n - one special characters (@#\${%^&*})',
+                    textAlign: TextAlign.left,
                     style: TextStyle(
                       fontSize: 14,
+                      color: Colors.grey,
                     ),
                   ),
                 ),
@@ -76,38 +85,60 @@ class Password extends StatelessWidget {
                     width: MediaQuery.of(context).size.width * 0.8,
                     child: Column(
                       children: [
-                        TextFormField(
-                          onSaved: (newValue) {
-                            pwd1 = newValue;
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Password',
-                            prefixIcon: Icon(Icons.password),
+                        Obx(
+                          () => TextFormField(
+                            onSaved: (newValue) {
+                              pwd1 = newValue;
+                            },
+                            obscureText: registerController.isHidden1.value,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Password',
+                              prefixIcon: Icon(Icons.password),
+                              suffixIcon: GestureDetector(
+                                child: registerController.isHidden1.value
+                                    ? Icon(Icons.visibility_off)
+                                    : Icon(Icons.remove_red_eye),
+                                onTap: () {
+                                  registerController.isHidden1.value =
+                                      !registerController.isHidden1.value;
+                                },
+                              ),
+                            ),
+                            validator: (value) {
+                              pwd1 = value;
+                              if (value != null && value.isEmpty) {
+                                return 'Password cannot be empty';
+                              } else if (!isValidPassword(value))
+                                return "follow the entry conditions";
+                              // print(isValidPassword(value));
+                            },
                           ),
-                          validator: (value) {
-                            pwd1 = value;
-                            if (value != null && value.isEmpty) {
-                              return 'Password cannot be empty';
-                            } else if (!isValidPassword(value))
-                              return "Check your password...";
-                            // print(isValidPassword(value));
-                          },
-                          obscureText: true,
                         ),
                         SizedBox(height: 10),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 're-Enter Password',
-                            prefixIcon: Icon(Icons.threesixty_outlined),
+                        Obx(
+                          () => TextFormField(
+                            obscureText: registerController.isHidden2.value,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 're-Enter Password',
+                              prefixIcon: Icon(Icons.threesixty_outlined),
+                              suffixIcon: GestureDetector(
+                                child: registerController.isHidden2.value
+                                    ? Icon(Icons.visibility_off)
+                                    : Icon(Icons.remove_red_eye),
+                                onTap: () {
+                                  registerController.isHidden2.value =
+                                      !registerController.isHidden2.value;
+                                },
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value != null && value.isEmpty) {
+                                return 're-Password  cannot be empty';
+                              } else if (pwd1 != value) return "Not The Same!";
+                            },
                           ),
-                          validator: (value) {
-                            if (value != null && value.isEmpty) {
-                              return 're-Password  cannot be empty';
-                            } else if (pwd1 != value) return "Not The Same!";
-                          },
-                          obscureText: true,
                         ),
                       ],
                     ),
@@ -126,8 +157,7 @@ class Password extends StatelessWidget {
                       // registerController.getName();
                     }
                   },
-                )
-                //
+                ),
               ],
             ),
           ],

@@ -27,7 +27,7 @@ class Responsible extends StatelessWidget {
             children: [
               Expanded(flex: 1, child: Container()),
               TextWidget(
-                  data: "Who is the responsible about the accident ? ",
+                  data: "Are you responsible for the accident?",
                   size: 22,
                   bold: true),
               SizedBox(height: 20),
@@ -82,7 +82,7 @@ class Responsible extends StatelessWidget {
               ),
               Expanded(flex: 1, child: Container()),
               ButtonWidget(
-                text: "Continuo",
+                text: "Continue",
                 color: AppColors.BLUE,
                 onPressed: () {
                   Get.off(() => DamageArea());

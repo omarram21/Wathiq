@@ -4,6 +4,7 @@ class Accidents {
   int noOfCars;
   List<dynamic> users;
   GeoPoint location;
+  //date
 
   Accidents({
     required this.noOfCars,

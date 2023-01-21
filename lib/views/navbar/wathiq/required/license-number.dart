@@ -70,7 +70,7 @@ class LicenseNumber extends StatelessWidget {
             SizedBox(height: 20),
             Expanded(flex: 1, child: Container()),
             ButtonWidget(
-              text: "Continuo",
+              text: "Continue",
               color: AppColors.BLUE,
               onPressed: () {
                 if (_formKey.currentState!.validate()) {

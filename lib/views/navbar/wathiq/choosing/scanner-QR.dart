@@ -24,6 +24,12 @@ class _ScannerQRCodeState extends State<ScannerQRCode> {
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
@@ -170,3 +176,49 @@ class _ScannerQRCodeState extends State<ScannerQRCode> {
     super.dispose();
   }
 }
+
+
+
+
+/*
+
+final GlobalKey _gLobalkey = GlobalKey();
+  QRViewController? controller;
+  Barcode? result;
+  void qr(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((event) {
+     setState(() {
+       result = event;
+     });
+    }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 400,
+              width: 400,
+              child: QRView(
+                  key: _gLobalkey,
+                  onQRViewCreated: qr
+              ),
+            ),
+            Center(
+              child: (result !=null) ? Text('${result!.code}') : Text('Scan a code'),
+            )
+          ],
+        ),
+      ),
+    );
+
+*/

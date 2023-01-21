@@ -41,7 +41,7 @@ class NumOfCarsLocation extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.remove),
                     onPressed: () {
-                      if (chooseTwoControllers.numOfCars.value > 2)
+                      if (chooseTwoControllers.numOfCars.value > 1)
                         chooseTwoControllers.numOfCars.value--;
                     },
                   ),

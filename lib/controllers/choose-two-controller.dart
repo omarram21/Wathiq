@@ -20,6 +20,8 @@ class ChooseTwoControllers extends GetxController {
     });
   }
 
+  RxString groub = "".obs;
+
   RxBool isdone = false.obs;
   RxInt numOfCars = 2.obs;
   late final position;
@@ -75,8 +77,9 @@ class ChooseTwoControllers extends GetxController {
           print(accidents.noOfCars);
           print(accidents.users.length);
           if (accidents.noOfCars == accidents.users.length)
-            Future.delayed(Duration(seconds: 2), () {
-              Get.off(() => RequiredDetails());
+            Future.delayed(Duration(seconds: 1), () {
+              Get.off(() => RequiredDetails(),
+                  arguments: randomNumber.toString());
             });
           // print(accidents.noOfCars);
         });

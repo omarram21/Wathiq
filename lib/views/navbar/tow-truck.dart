@@ -26,7 +26,7 @@ class TowTruck extends StatelessWidget {
               child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Select city :",
+                  "Select city:",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ),

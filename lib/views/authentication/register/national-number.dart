@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:wathiq/controllers/register-controller.dart';
 import 'package:wathiq/views/authentication/register/IDNo.dart';
 import 'package:wathiq/widgets/button.dart';
+import 'package:wathiq/widgets/text.dart';
 
 import '../../../constans.dart';
 import '../../../widgets/text-input-field.dart';
@@ -21,6 +22,12 @@ class NationalNumber extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.BLUE,
         elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: TextWidget(data: "1/5", bold: true),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -64,17 +71,15 @@ class NationalNumber extends StatelessWidget {
                 const Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15.0),
                   child: Text(
-                    'Enter your National number witch is consist of 10 digests and it\'s on front of your Card',
+                    'Enter your National number which is consist of 10 digests and it\'s on front of your Card',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
+                      color: Colors.grey,
                     ),
                   ),
                 ),
-                // Text(
-                //   "Enter Your National number : ",
-                //   style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                // ),
+
                 SizedBox(height: 20),
                 Form(
                   key: _formKey,
@@ -114,8 +119,8 @@ class NationalNumber extends StatelessWidget {
                       registerController.NID = nationalNumber;
                       await registerController.findNID(nationalNumber!)
                           ? Get.to(() => IDNo())
-                          : Get.snackbar('national Number Not Found',
-                              'please enter a valid national Number');
+                          : Get.snackbar('National number not found',
+                              'please enter a valid national number');
                     }
                   },
                 )

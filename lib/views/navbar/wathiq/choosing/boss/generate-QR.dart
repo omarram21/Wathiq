@@ -3,20 +3,37 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/choose-two-controller.dart';
 import 'package:wathiq/widgets/text.dart';
 
-class GenerateQRCode extends StatelessWidget {
+class GenerateQRCode extends StatefulWidget {
   GenerateQRCode({super.key});
 
   @override
+  State<GenerateQRCode> createState() => _GenerateQRCodeState();
+}
+
+class _GenerateQRCodeState extends State<GenerateQRCode> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+  }
+
   final chooseTwoControllers = Get.find<ChooseTwoControllers>();
 
   // int randomNumber =;
-
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {

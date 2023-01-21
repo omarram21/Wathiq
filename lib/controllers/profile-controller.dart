@@ -6,6 +6,7 @@ import 'package:wathiq/views/authentication/choose-method.dart';
 
 class ProfileController extends GetxController {
   late Users users;
+  String ComplaintsOrSuggestions = "";
   @override
   void onInit() {
     // TODO: implement onInit
@@ -28,5 +29,12 @@ class ProfileController extends GetxController {
   void deleteAccount() async {
     await FirebaseAuth.instance.currentUser!.delete();
     Get.offAll(() => ChooseMethod());
+  }
+
+  addToFireeBaseComplaintsOrSuggestions() {
+    FirebaseFirestore.instance.collection('ComplaintsOrSuggestions').add({
+      "ComplaintsOrSuggestions": ComplaintsOrSuggestions,
+      'uid': FirebaseAuth.instance.currentUser!.uid
+    });
   }
 }

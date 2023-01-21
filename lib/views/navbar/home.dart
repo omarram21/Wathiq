@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      TextWidget(data: "Order Two-Truck Van", bold: true),
+                      TextWidget(data: "Order Two-Truck", bold: true),
                       Image.asset("assets/images/shipping.png", width: 50),
                     ],
                   ),
@@ -85,7 +85,7 @@ class Home extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      TextWidget(data: "My Old Accidents", bold: true),
+                      TextWidget(data: "Previous Accidents", bold: true),
                       Icon(Icons.history, size: 50)
                       // Image.asset("assets/images/shipping.png", width: 50),
                     ],

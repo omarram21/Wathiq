@@ -64,7 +64,7 @@ class DamageArea extends StatelessWidget {
             ),
             // Expanded(flex: 1, child: Container()),
             ButtonWidget(
-              text: "Continuo",
+              text: "Continue",
               color: AppColors.BLUE,
               onPressed: () {
                 print(requiredDetailsController.chickList.value);

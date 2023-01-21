@@ -28,15 +28,20 @@ class OnboardingPage extends StatelessWidget {
                             _controller.onboardingPages[index].imageAsset,
                             height: MediaQuery.of(context).size.height / 3),
                         SizedBox(height: 32),
-                        Text(
-                          _controller.onboardingPages[index].title,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "beIN",
-                            height: 1,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            _controller.onboardingPages[index].title,
+                            // ignore: prefer_const_constructors
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "beIN",
+                              wordSpacing: 2,
+                              height: 1,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                         SizedBox(height: 25),
                         Padding(
@@ -44,7 +49,10 @@ class OnboardingPage extends StatelessWidget {
                           child: Text(
                             _controller.onboardingPages[index].description,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
                       ],

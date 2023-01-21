@@ -78,9 +78,9 @@ class SignIn extends StatelessWidget {
                           maxLength: 10,
                           validator: (value) {
                             if (value != null && value.isEmpty) {
-                              return 'National number cannot be empty';
+                              return 'please enter your National number';
                             } else if (value!.length < 10)
-                              return "cannot be less than 10 digits";
+                              return "invalid national number";
                           },
                           // obscureText: true,
                         ),
@@ -90,21 +90,32 @@ class SignIn extends StatelessWidget {
                             child: Text("Enter Your Password",
                                 style: TextStyle(fontWeight: FontWeight.w900))),
                         SizedBox(height: 10),
-                        TextFormField(
-                          onSaved: (newValue) {
-                            password = newValue;
-                          },
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Password',
-                            prefixIcon: Icon(Icons.password),
+                        Obx(
+                          () => TextFormField(
+                            onSaved: (newValue) {
+                              password = newValue;
+                            },
+                            obscureText: registerController.isHidden3.value,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Password',
+                              prefixIcon: Icon(Icons.password),
+                              suffixIcon: GestureDetector(
+                                child: registerController.isHidden3.value
+                                    ? Icon(Icons.visibility_off)
+                                    : Icon(Icons.remove_red_eye),
+                                onTap: () {
+                                  registerController.isHidden3.value =
+                                      !registerController.isHidden3.value;
+                                },
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value != null && value.isEmpty) {
+                                return 'cannot be empty';
+                              }
+                            },
                           ),
-                          validator: (value) {
-                            if (value != null && value.isEmpty) {
-                              return 'cannot be empty';
-                            }
-                          },
-                          obscureText: true,
                         ),
                       ],
                     ),
@@ -118,8 +129,8 @@ class SignIn extends StatelessWidget {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      print(nationalNumber);
-                      print(password);
+                      // print(nationalNumber);
+                      // print(password);
                       registerController.SignIn(nationalNumber!, password!);
                     }
                   },
