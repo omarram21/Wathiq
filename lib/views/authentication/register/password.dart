@@ -146,7 +146,7 @@ class Password extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ButtonWidget(
-                  text: "Continuo",
+                  text: "Continue",
                   color: AppColors.BLUE,
                   width: MediaQuery.of(context).size.width * 0.8,
                   onPressed: () {

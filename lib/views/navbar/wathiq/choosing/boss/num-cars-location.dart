@@ -15,6 +15,7 @@ class NumOfCarsLocation extends StatelessWidget {
   NumOfCarsLocation({super.key});
 
   final chooseTwoControllers = Get.find<ChooseTwoControllers>();
+  // final chooseTwoControllers = Get.put(ChooseTwoControllers());
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,7 @@ class NumOfCarsLocation extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
+                    key: Key("minus"),
                     icon: Icon(Icons.remove),
                     onPressed: () {
                       if (chooseTwoControllers.numOfCars.value > 1)
@@ -48,6 +50,7 @@ class NumOfCarsLocation extends StatelessWidget {
                 ),
                 Obx(
                   () => TextWidget(
+                      key: Key("TextKey"),
                       data: chooseTwoControllers.numOfCars.value.toString(),
                       bold: true,
                       size: 35),
@@ -58,6 +61,7 @@ class NumOfCarsLocation extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
+                    key: Key("plus"),
                     icon: Icon(Icons.add),
                     onPressed: () {
                       if (chooseTwoControllers.numOfCars.value < 6)

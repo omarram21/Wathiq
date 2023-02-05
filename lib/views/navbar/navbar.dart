@@ -52,7 +52,7 @@ class NavBar extends StatelessWidget {
       inactiveColorPrimary: Colors.grey,
     ),
     PersistentBottomNavBarItem(
-      icon: Image.asset("assets/images/shipping.png"),
+      icon: Icon(Icons.fire_truck_outlined),
       title: "Truck",
       activeColorPrimary: Colors.white,
       inactiveColorPrimary: Colors.grey,

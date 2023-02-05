@@ -243,7 +243,7 @@ class _VoiceRecordState extends State<VoiceRecord> {
                                       .audioDuration.value);
                                   if (!requiredDetailsController.okay) {
                                     Get.snackbar('Error',
-                                        'pleas recorded your voice to continuo');
+                                        'pleas recorded your voice to Continue');
                                   } else {
                                     dispose();
                                     Get.back();

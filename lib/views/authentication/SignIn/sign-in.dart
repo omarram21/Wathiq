@@ -8,7 +8,8 @@ import '../../../constans.dart';
 class SignIn extends StatelessWidget {
   SignIn({super.key});
 
-  RegisterController registerController = Get.find<RegisterController>();
+  // RegisterController registerController = Get.find<RegisterController>();
+  RegisterController registerController = Get.put(RegisterController());
   final _formKey = GlobalKey<FormState>();
   String? nationalNumber;
   String? password;
@@ -64,6 +65,7 @@ class SignIn extends StatelessWidget {
                                 style: TextStyle(fontWeight: FontWeight.w900))),
                         SizedBox(height: 10),
                         TextFormField(
+                          key: Key("National-number"),
                           onSaved: (newValue) {
                             nationalNumber = newValue;
                           },
@@ -92,6 +94,7 @@ class SignIn extends StatelessWidget {
                         SizedBox(height: 10),
                         Obx(
                           () => TextFormField(
+                            key: Key("Password"),
                             onSaved: (newValue) {
                               password = newValue;
                             },
@@ -123,6 +126,7 @@ class SignIn extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 ButtonWidget(
+                  key: Key("SignIn"),
                   text: "SignIn",
                   color: AppColors.BLUE,
                   width: MediaQuery.of(context).size.width * 0.8,

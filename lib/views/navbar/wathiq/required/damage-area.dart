@@ -68,6 +68,8 @@ class DamageArea extends StatelessWidget {
               color: AppColors.BLUE,
               onPressed: () {
                 print(requiredDetailsController.chickList.value);
+                requiredDetailsController.IsChickList.value = true;
+                print(requiredDetailsController.IsChickList.value);
                 Get.off(() => Pictures());
               },
             )

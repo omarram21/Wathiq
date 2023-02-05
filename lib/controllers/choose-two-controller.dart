@@ -14,24 +14,36 @@ class ChooseTwoControllers extends GetxController {
     // TODO: implement onInit
     super.onInit();
     await _determinePosition();
-    ever(randomNumber, (callback) {
-      print(callback.toString() + "ever");
-      Listen(callback);
-    });
-  }
 
-  RxString groub = "".obs;
+    ever(
+      randomNumber,
+      (callback) {
+        print(callback.toString() + " ever");
+        Listen(callback);
+      },
+    );
+  }
 
   RxBool isdone = false.obs;
   RxInt numOfCars = 2.obs;
+
   late final position;
+  late GeoPoint geoPoint;
+
   RxInt randomNumber = 0.obs;
   RxInt listSize = 0.obs;
-  late GeoPoint geoPoint;
+
   RxBool go = false.obs;
 
+  void incresining() {
+    numOfCars.value++;
+  }
+
+  void decresining() {
+    numOfCars.value--;
+  }
+
   void offToFill(String docName) async {
-    print(docName + "  Heeetr");
     final doc = await FirebaseFirestore.instance
         .collection('accidents')
         .doc(docName)
@@ -46,7 +58,7 @@ class ChooseTwoControllers extends GetxController {
 
   void addOneUser(String douc) {
     // print(douc);
-    print(douc.contains("wathiq"));
+    // print(douc.contains("wathiq"));
     // print("===============================================================");
     if (douc.contains("wathiq")) {
       randomNumber.value = int.parse(douc.substring(6));
@@ -64,8 +76,13 @@ class ChooseTwoControllers extends GetxController {
 
   void Listen(int rand) async {
     try {
-      print(rand.toString() + "Inside Listen");
+      print(rand.toString() + " Inside Listen");
+      print(rand != 0);
+
       if (rand != 0) {
+        print(rand.toString() + " Inside Listen");
+        print("${rand} insiiiiiidiieidiediedieidiedi");
+
         await FirebaseFirestore.instance
             .collection("accidents")
             .doc(randomNumber.toString())
@@ -94,19 +111,26 @@ class ChooseTwoControllers extends GetxController {
         noOfCars: numOfCars.value,
         users: [FirebaseAuth.instance.currentUser!.uid],
         location: geoPoint);
-
-    await FirebaseFirestore.instance
-        .collection("accidents")
-        .doc(randomNumber.toString())
-        .set(accidents.toJson());
-    // .doc(randomNumber.toString()).;
+    try {
+      await FirebaseFirestore.instance
+          .collection("accidents")
+          .doc(randomNumber.toString())
+          .set(accidents.toJson());
+      // .doc(randomNumber.toString()).;
+    } catch (e) {
+      print(e);
+    }
   }
 
   void checkForDocuments() async {
-    final doc = await FirebaseFirestore.instance
-        .collection("accidents")
-        .doc(randomNumber.toString())
-        .delete();
+    try {
+      final doc = await FirebaseFirestore.instance
+          .collection("accidents")
+          .doc(randomNumber.toString())
+          .delete();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> _determinePosition() async {
@@ -116,7 +140,7 @@ class ChooseTwoControllers extends GetxController {
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // Location services are not enabled don't continue
+      // Location services are not enabled don't Continue
       // accessing the position and request users of the
       // App to enable the location services.
       return Future.error('Location services are disabled.');
@@ -144,14 +168,15 @@ class ChooseTwoControllers extends GetxController {
     }
 
     // When we reach here, permissions are granted and we can
-    // continue accessing the position of the device.
+    // Continue accessing the position of the device.
     position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.low);
 
     isdone.value = true;
 
     print(position.latitude);
     print(position.longitude);
     geoPoint = GeoPoint(position.latitude, position.longitude);
+    geoPoint = GeoPoint(30, 30);
   }
 }

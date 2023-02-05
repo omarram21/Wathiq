@@ -22,13 +22,13 @@ class _GenerateQRCodeState extends State<GenerateQRCode> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    // FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
   }
 
   @override
   void dispose() {
     super.dispose();
-    FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
+    // FlutterWindowManager.clearFlags(FlutterWindowManager.FLAG_SECURE);
   }
 
   final chooseTwoControllers = Get.find<ChooseTwoControllers>();

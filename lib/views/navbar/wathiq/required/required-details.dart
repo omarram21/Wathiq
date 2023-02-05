@@ -141,16 +141,23 @@ class RequiredDetails extends StatelessWidget {
                   ),
                   title: TextWidget(data: "Damage Area", bold: true),
                   subtitle: TextWidget(data: '', bold: true),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.check_box_outlined,
-                        color: Colors.green,
-                      ),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.arrow_forward),
-                    ],
+                  trailing: Obx(
+                    () => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        requiredDetailsController.IsChickList.value == false
+                            ? const Icon(
+                                Icons.crop_square,
+                                color: Colors.red,
+                              )
+                            : const Icon(
+                                Icons.check_box_outlined,
+                                color: Colors.green,
+                              ),
+                        const SizedBox(width: 10),
+                        const Icon(Icons.arrow_forward),
+                      ],
+                    ),
                   ),
                   onTap: () => Get.to(() => DamageArea()),
                 ),
@@ -230,7 +237,7 @@ class RequiredDetails extends StatelessWidget {
                     QuickAlert.show(
                       context: context,
                       type: QuickAlertType.success,
-                      text: 'Transaction Completed Successfully!',
+                      text: 'Completed Successfully!',
                     );
                   } else {
                     QuickAlert.show(

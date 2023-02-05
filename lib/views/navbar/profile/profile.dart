@@ -10,6 +10,7 @@ import 'package:wathiq/constans.dart';
 import 'package:wathiq/controllers/profile-controller.dart';
 import 'package:wathiq/views/authentication/choose-method.dart';
 import 'package:wathiq/views/navbar/navbar.dart';
+import 'package:wathiq/views/navbar/profile/about.dart';
 import 'package:wathiq/views/navbar/profile/account-information.dart';
 import 'package:wathiq/views/navbar/profile/complations.dart';
 import 'package:wathiq/views/navbar/profile/owned-vehicles.dart';
@@ -70,8 +71,7 @@ class Profile extends StatelessWidget {
                     text: "About Wathiq",
                     color: AppColors.BLUE,
                     onPressed: () async {
-                      await launchUrl(
-                          Uri(scheme: 'tel', path: "+962790000001"));
+                      Get.to(() => AboutWathiq());
                     },
                   ),
                   SizedBox(height: 15),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wathiq/controllers/required-details-controller.dart';
+import 'package:wathiq/controllers/tempcontroller.dart';
 import 'package:wathiq/views/navbar/wathiq/choosing/choose-between-two.dart';
 import 'package:wathiq/views/navbar/wathiq/required/required-details.dart';
 import 'package:wathiq/widgets/button.dart';
@@ -10,7 +11,7 @@ import '../../../controllers/choose-two-controller.dart';
 
 class Wathiq extends StatelessWidget {
   Wathiq({super.key});
-  ChooseTwoControllers chooseTwoControllers = Get.put(ChooseTwoControllers());
+  TempController tempController = Get.put(TempController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +37,9 @@ class Wathiq extends StatelessWidget {
                 children: [
                   Radio(
                     value: "yes",
-                    groupValue: chooseTwoControllers.groub.value,
+                    groupValue: tempController.groub.value,
                     onChanged: (val) {
-                      chooseTwoControllers.groub.value = val as String;
+                      tempController.groub.value = val as String;
                     },
                   ),
                   Text("YES"),
@@ -48,10 +49,10 @@ class Wathiq extends StatelessWidget {
                 children: [
                   Radio(
                     value: "no",
-                    groupValue: chooseTwoControllers.groub.value,
+                    groupValue: tempController.groub.value,
                     onChanged: (val) {
-                      chooseTwoControllers.groub.value = val as String;
-                      print(chooseTwoControllers.groub.value);
+                      tempController.groub.value = val as String;
+                      print(tempController.groub.value);
                     },
                   ),
                   Text("NO"),
@@ -60,7 +61,7 @@ class Wathiq extends StatelessWidget {
             ],
           ),
           SizedBox(height: 100),
-          if (chooseTwoControllers.groub == "yes")
+          if (tempController.groub == "yes")
             ButtonWidget(
               text: "Call 911",
               color: Colors.red,
@@ -70,7 +71,7 @@ class Wathiq extends StatelessWidget {
                 );
               },
             )
-          else if (chooseTwoControllers.groub == "no")
+          else if (tempController.groub == "no")
             ButtonWidget(
               text: "New Accident Report",
               color: Colors.green,

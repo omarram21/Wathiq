@@ -68,7 +68,7 @@ class EnterPhoneNumber extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
               child: Text(
-                'Enter your phone number to continuo, we will send you OTP to verify.',
+                'Enter your phone number to Continue, we will send you OTP to verify.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,

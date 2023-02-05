@@ -34,7 +34,7 @@ class Complaints extends StatelessWidget {
                 data:
                     "if you have any Complaints or Suggestions, we are happy to hear from you",
                 bold: true,
-                size: 22,
+                size: 18,
               ),
               SizedBox(height: 20),
               Form(
@@ -52,7 +52,7 @@ class Complaints extends StatelessWidget {
                   ),
                   validator: (value) {
                     if (value != null && value.isEmpty) {
-                      return 'pleas add some world before continue';
+                      return 'pleas add some world before Continue';
                     }
                   },
                   onSaved: (newValue) {
@@ -67,9 +67,9 @@ class Complaints extends StatelessWidget {
                 color: AppColors.BLUE,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    _textController.clear();
                     _formKey.currentState!.save();
                     profileController.addToFireeBaseComplaintsOrSuggestions();
+                    _textController.clear();
                     QuickAlert.show(
                       context: context,
                       type: QuickAlertType.success,

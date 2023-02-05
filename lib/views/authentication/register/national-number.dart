@@ -109,7 +109,7 @@ class NationalNumber extends StatelessWidget {
                 ),
                 SizedBox(height: 50),
                 ButtonWidget(
-                  text: "Continuo",
+                  text: "Continue",
                   color: AppColors.BLUE,
                   width: MediaQuery.of(context).size.width * 0.8,
                   onPressed: () async {

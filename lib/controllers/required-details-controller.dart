@@ -41,7 +41,9 @@ class RequiredDetailsController extends GetxController {
   RxString license = "".obs;
   RxString responsible = "".obs;
   bool okay = false;
+
   RxList chickList = [].obs;
+  RxBool IsChickList = false.obs;
 
   RxList<dynamic> listImage = [].obs;
   RxList<dynamic> listImage2 = [].obs;

@@ -46,7 +46,7 @@ class ChooseMethod extends StatelessWidget {
               children: [
                 ButtonWidget(
                   text: "Login",
-                  color: AppColors.GRAY,
+                  color: AppColors.BLUE,
                   // width: 200,
                   onPressed: () {
                     Get.to(() => SignIn());
@@ -55,7 +55,7 @@ class ChooseMethod extends StatelessWidget {
                 SizedBox(height: 20),
                 ButtonWidget(
                   text: "Register",
-                  color: AppColors.GRAY,
+                  color: AppColors.BLUE,
                   // width: 200,
                   onPressed: () {
                     Get.to(() => NationalNumber());

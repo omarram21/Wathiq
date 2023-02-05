@@ -13,7 +13,7 @@ import 'package:wathiq/widgets/text.dart';
 class ChooseBetweenTwo extends StatelessWidget {
   ChooseBetweenTwo({super.key});
 
-  final chooseTwoControllers = Get.find<ChooseTwoControllers>();
+  final chooseTwoControllers = Get.put(ChooseTwoControllers());
   final requiredDetailsController = Get.put(RequiredDetailsController());
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ import 'package:wathiq/widgets/text.dart';
 
 class WaitingPage extends StatelessWidget {
   WaitingPage({super.key});
-  final chooseTwoControllers = Get.find<ChooseTwoControllers>();
+  // final chooseTwoControllers = Get.find<ChooseTwoControllers>();
 
   @override
   Widget build(BuildContext context) {

@@ -84,10 +84,6 @@ class OwnedVehicles extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            ButtonWidget(
-                text: "Add New Vehicle",
-                color: AppColors.BLUE,
-                onPressed: () {})
           ],
         ),
       ),

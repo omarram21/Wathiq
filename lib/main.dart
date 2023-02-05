@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 import 'package:wathiq/constans.dart';
@@ -14,6 +15,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(MyApp());
 }
 
@@ -23,17 +28,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      // home: NavBar(),
       home: FirebaseAuth.instance.currentUser == null
           ? OnboardingPage()
           : NavBar(),
-      // home: OnboardingPage(),
-      // home: ChooseMethod(),
-      // initialBinding: HomeBinding(),
     );
   }
 }
