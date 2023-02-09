@@ -121,12 +121,12 @@ class RegisterController extends GetxController {
       if (e.code == 'user-not-found') {
         // ok = true;
         Get.snackbar(
-            "Something Error", "no user found for that national number");
+            "Something Error", "Incorrect national number or password");
         // print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
         // ok = true;
         Get.snackbar(
-            "Something Error", "Wrong password provided for that user.");
+            "Something Error", "Incorrect national number or password");
       } else {
         print(e.code);
       }

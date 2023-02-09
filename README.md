@@ -1,16 +1,17 @@
-# wathiq
+# wathiq Application
 
-A new Flutter project.
+My Graduation project.
+
+- Dart.
+- Flutter
+- GETX
+- MVC
+- Firebase
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Mobile application to report traffic accidents without the presence of a traffic policeman
 
-A few resources to get you started if this is your first Flutter project:
+## UI
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[label](../Screenshot_1675986297.png%0D) [label](../Screenshot_1675986121.png%0D) [label](../Screenshot_1675986127.png%0D) [label](../Screenshot_1675986130.png%0D) [label](../Screenshot_1675986147.png%0D) [label](../Screenshot_1675986167.png%0D) [label](../Screenshot_1675986180.png%0D) [label](../Screenshot_1675986185.png%0D) [label](../Screenshot_1675986211.png%0D) [label](../Screenshot_1675986238.png%0D) [label](../Screenshot_1675986241.png%0D) [label](../Screenshot_1675986246.png%0D) [label](../Screenshot_1675986249.png%0D) [label](../Screenshot_1675986252.png%0D) [label](../Screenshot_1675986262.png%0D) [label](../Screenshot_1675986264.png%0D) [label](../Screenshot_1675986266.png%0D) [label](../Screenshot_1675986272.png%0D) [label](../Screenshot_1675986278.png%0D) [label](../Screenshot_1675986282.png%0D) [label](../Screenshot_1675986286.png%0D) [label](../Screenshot_1675986289.png%0D) ![Alt text](../Screenshot_1675986293.png)
