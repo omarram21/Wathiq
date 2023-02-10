@@ -32,7 +32,7 @@ Mobile application to report traffic accidents without the presence of a traffic
 
 <br>
 
-<img src="pictures/Screenshot_1675986278.png" width="200"> <img src="pictures/Screenshot_1675986282.png" width="200"> <img src="pictures/Screenshot_1675986286.png" width="200"> <img src="pictures/Screenshot_1675986289.png" width="200"> <img src="pictures/Screenshot_16759862893.png" width="200">  <img src="pictures/Screenshot_16759862897.png" width="200">
+<img src="pictures/Screenshot_1675986278.png" width="200"> <img src="pictures/Screenshot_1675986282.png" width="200"> <img src="pictures/Screenshot_1675986286.png" width="200"> <img src="pictures/Screenshot_1675986289.png" width="200"> <img src="pictures/Screenshot_1675986293.png" width="200">  <img src="pictures/Screenshot_1675986297.png" width="200">
 
 
 
